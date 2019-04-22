@@ -4,21 +4,12 @@ import nltk.text
 import nltk.corpus
 
 from nltk.tokenize import word_tokenize
+nltk.download('punkt')
 
 
 
 
 if __name__ == '__main__':
-	# pass
-	# idx = nltk.text.ContextIndex([word.lower( ) for word in nltk.corpus.brown.words( )])
-	# save = [ ]
-	# for word in nltk.word_tokenize("i want to solve this problem"):
-	# 	save.append(idx.similar_words(word))
-
-	# for word in save:
-	# 	print(word)
-
-	
 
 	raw_documents = [	"Саша 12 лет вышел на улицу",
 						"Паша 12 лет вышел на улицу",
@@ -37,8 +28,7 @@ if __name__ == '__main__':
 
 	for text in raw_documents:
 		print(text)
-		#for w in word_tokenize(text):
-		#docs = [w.lower() for w in word_tokenize(text)]
-			#docs.append(list(w.lower() for w in word_tokenize(text)))
+		for w in word_tokenize(text):
+			docs.append(w.lower())
 
-	#print(gen_docs)
+	print(docs)
