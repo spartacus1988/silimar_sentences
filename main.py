@@ -24,11 +24,7 @@ if __name__ == '__main__':
 
 	print("Number of documents: " + str(len(raw_documents)))
 	
-	docs = []
-
-	for text in raw_documents:
-		print(text)
-		for w in word_tokenize(text):
-			docs.append(w.lower())
+	docs = [[w.lower() for w in word_tokenize(text)] 
+            for text in raw_documents]
 
 	print(docs)
