@@ -45,9 +45,19 @@ if __name__ == '__main__':
 	#print(corpus)
 
 	#gen_docs = nltk.FreqDist(gen_docs)
-	words = nltk.tokenize.word_tokenize(raw_documents[0])
-	fdist = nltk.FreqDist(words)
-	print(fdist.most_common(4))
+	#words = nltk.tokenize.word_tokenize(raw_documents[0])
+	#fdist = nltk.FreqDist(words)
+	#print(fdist.most_common(4))
+
+	result_list = []
+
+	for doc in gen_docs:
+		fdist = nltk.FreqDist(doc)
+		print(fdist.most_common(10))
+		result_list.append(fdist.most_common(10))
+
+	print(result_list)
+
 
 
 	# query_doc_tf_idf = tf_idf[query_doc_bow]
