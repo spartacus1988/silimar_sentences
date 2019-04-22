@@ -33,6 +33,7 @@ if __name__ == '__main__':
 	print(gen_docs)
 
 
+
 	# dictionary = gensim.corpora.Dictionary(gen_docs)
 	# print(dictionary[5])
 	# print(dictionary.token2id['лет'])
