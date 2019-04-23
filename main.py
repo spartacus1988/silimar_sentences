@@ -29,7 +29,7 @@ if __name__ == '__main__':
 	print("words", words)
 
 
-	n_clusters=5
+	n_clusters=9
 	number_of_seeds_to_try=10
 	max_iter = 300
 	number_of_process=2 # seads are distributed
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 	print("Top words per cluster:")
 	for i_cluster in range(n_clusters):
 		print("Cluster:", i_cluster, "texts:", int(texts_per_cluster[i_cluster])),
-		for term in ordered_words[i_cluster, :10]:
+		for term in ordered_words[i_cluster, :5]:
 			print("\t"+words[term])
 
 	print("\n")
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
 	print(text_to_predict)
 	print("Cluster:", predicted_cluster, "texts:", int(texts_per_cluster[predicted_cluster])),
-	for term in ordered_words[predicted_cluster, :10]:
+	for term in ordered_words[predicted_cluster, :5]:
 		print("\t"+words[term])
 
 
