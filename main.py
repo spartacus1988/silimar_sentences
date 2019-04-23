@@ -54,7 +54,8 @@ if __name__ == '__main__':
 	for doc in gen_docs:
 		fdist = nltk.FreqDist(doc)
 		print(fdist.most_common(10))
-		result_list.append(fdist.most_common(10))
+		#result_list.append(fdist.most_common(10))
+		result_list.append(fdist)
 
 	print(result_list)
 
