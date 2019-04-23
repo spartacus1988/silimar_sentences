@@ -9,6 +9,11 @@ nltk.download('punkt')
 import gensim
 print(dir(gensim))
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.cluster import KMeans
+from sklearn.metrics import adjusted_rand_score
+import numpy
+
 
 
 
@@ -25,12 +30,66 @@ if __name__ == '__main__':
 						"Паш 12 лет – Саше 12 лет",
 						"Саша  - Паша играют в хоккей возле дома"]
 
-	print("Number of documents: " + str(len(raw_documents)))
-	
-	gen_docs = [[w.lower() for w in word_tokenize(text)] 
-			for text in raw_documents]
 
-	print(gen_docs)
+
+	# vectorization of the raw_documents
+	vectorizer = TfidfVectorizer(stop_words=None)
+	X = vectorizer.fit_transform(raw_documents)
+
+	words = vectorizer.get_feature_names()
+	print("words", words)
+
+
+	n_clusters=3
+	number_of_seeds_to_try=10
+	max_iter = 300
+	number_of_process=2 # seads are distributed
+	model = KMeans(n_clusters=n_clusters, max_iter=max_iter, n_init=number_of_seeds_to_try, n_jobs=number_of_process).fit(X)
+
+	labels = model.labels_
+	# indices of preferible words in each cluster
+	ordered_words = model.cluster_centers_.argsort()[:, ::-1]
+
+
+	print("centers:", model.cluster_centers_)
+	print("labels", labels)
+	print("intertia:", model.inertia_)
+
+
+	texts_per_cluster = numpy.zeros(n_clusters)
+	for i_cluster in range(n_clusters):
+		for label in labels:
+			if label==i_cluster:
+				texts_per_cluster[i_cluster] +=1 
+
+	print("Top words per cluster:")
+	for i_cluster in range(n_clusters):
+		print("Cluster:", i_cluster, "texts:", int(texts_per_cluster[i_cluster])),
+		for term in ordered_words[i_cluster, :10]:
+			print("\t"+words[term])
+
+	print("\n")
+	print("Prediction")
+
+
+	text_to_predict = "Саша 12 лет вышел на улицу"
+	Y = vectorizer.transform([text_to_predict])
+	predicted_cluster = model.predict(Y)[0]
+	texts_per_cluster[predicted_cluster]+=1
+
+	print(text_to_predict)
+	print("Cluster:", predicted_cluster, "texts:", int(texts_per_cluster[predicted_cluster])),
+	for term in ordered_words[predicted_cluster, :10]:
+		print("\t"+words[term])
+
+
+
+	# print("Number of documents: " + str(len(raw_documents)))
+	
+	# gen_docs = [[w.lower() for w in word_tokenize(text)] 
+	# 		for text in raw_documents]
+
+	# print(gen_docs)
 
 
 
@@ -49,15 +108,15 @@ if __name__ == '__main__':
 	#fdist = nltk.FreqDist(words)
 	#print(fdist.most_common(4))
 
-	result_list = []
+	# result_list = []
 
-	for doc in gen_docs:
-		fdist = nltk.FreqDist(doc)
-		print(fdist.most_common(10))
-		#result_list.append(fdist.most_common(10))
-		result_list.append(fdist)
+	# for doc in gen_docs:
+	# 	fdist = nltk.FreqDist(doc)
+	# 	print(fdist.most_common(10))
+	# 	#result_list.append(fdist.most_common(10))
+	# 	result_list.append(fdist)
 
-	print(result_list)
+	# print(result_list)
 
 
 
