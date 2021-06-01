@@ -36,7 +36,7 @@ stevedore==1.29.0
 Twisted==18.9.0
 twitter==1.18.0
 Unidecode==1.0.22
-urllib3==1.23
+urllib3==1.26.5
 virtualenv==16.0.0
 virtualenv-clone==0.3.0
 virtualenvwrapper==4.8.2
