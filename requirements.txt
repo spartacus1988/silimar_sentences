@@ -28,7 +28,7 @@ queuelib==1.5.0
 rainbowstream==1.4.0
 requests==2.5.3
 RPi.GPIO==0.6.4
-Scrapy==1.5.1
+Scrapy==1.8.1
 selenium==3.14.1
 service-identity==17.0.0
 six==1.11.0
